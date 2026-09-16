@@ -1,0 +1,17 @@
+{
+  "name": "trainer-motuca",
+  "version": "0.1.0-beta.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node scripts/start.js",
+    "test": "node --test",
+    "install:mod": "node scripts/install-mod.js"
+  },
+  "devDependencies": {
+    "fengari": "^0.1.5"
+  }
+}

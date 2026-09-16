@@ -1,0 +1,38 @@
+// Add a new locale here and to `languages`. UI text deliberately lives outside
+// app.js so translators do not have to change the trainer behavior.
+export const languages = { 'pt-BR': 'Português', en: 'English' };
+
+const ptBR = {};
+const en = {
+  'Aguardando jogo': 'Waiting for game', 'Conectado': 'Connected', 'Servidor indisponível': 'Server unavailable',
+  'Seções do trainer': 'Trainer sections', 'Sobrevivente': 'Survivor', 'Mochila': 'Backpack', 'Perícias': 'Skills', 'Personagem': 'Character', 'SEU JOGO. SUAS REGRAS.': 'YOUR GAME. YOUR RULES.',
+  'KIT DE SOBREVIVÊNCIA / KNOX COUNTY': 'SURVIVAL KIT / KNOX COUNTY', 'O APOCALIPSE.': 'THE APOCALYPSE.', 'DO SEU JEITO.': 'YOUR WAY.',
+  'A horda não joga limpo. Você também não precisa.': "The horde doesn't play fair. You don't have to either.", 'Prepare a mochila e ganhe mais um dia.': 'Pack your bag and earn another day.', 'PREPARAR SOBREVIVENTE': 'PREPARE SURVIVOR', 'ÁREA DE SOBREVIVÊNCIA': 'SURVIVAL AREA', 'AINDA': 'STILL', 'VIVO.': 'ALIVE.',
+  'Language': 'Idioma', 'Motuca, início': 'Motuca, home',
+  // Skill labels must match the Portuguese values returned by backend/protocol.js.
+  'Condicionamento': 'Fitness', 'Força': 'Strength', 'Corrida': 'Sprinting', 'Passos leves': 'Lightfoot', 'Agilidade': 'Nimble', 'Furtividade': 'Sneak',
+  'Machado': 'Axe', 'Contundente longo': 'Long Blunt', 'Contundente curto': 'Short Blunt', 'Lâmina longa': 'Long Blade', 'Lâmina curta': 'Short Blade', 'Lança': 'Spear', 'Manutenção': 'Maintenance', 'Mira': 'Aiming', 'Recarga': 'Reloading',
+  'Carpintaria': 'Carpentry', 'Culinária': 'Cooking', 'Agricultura': 'Farming', 'Primeiros socorros': 'First Aid', 'Elétrica': 'Electrical', 'Soldagem': 'Metalwelding', 'Mecânica': 'Mechanics', 'Costura': 'Tailoring', 'Pesca': 'Fishing', 'Armadilhas': 'Trapping', 'Coleta': 'Foraging', 'Rastreamento': 'Tracking', 'Ferraria': 'Blacksmithing', 'Lascamento': 'Flint Knapping', 'Alvenaria': 'Masonry', 'Cerâmica': 'Pottery', 'Escultura': 'Carving', 'Açougue': 'Butchering', 'Vidraria': 'Glassmaking',
+  'SAÚDE': 'HEALTH', 'FOME': 'HUNGER', 'SEDE': 'THIRST', 'FADIGA': 'FATIGUE', 'COORDENADAS': 'COORDINATES', '✚ SAÚDE': '✚ HEALTH', '◒ FOME': '◒ HUNGER', '◈ SEDE': '◈ THIRST', '☾ FADIGA': '☾ FATIGUE', '⌖ COORDENADAS': '⌖ COORDINATES', 'Status do personagem': 'Character status',
+  'Primeiros socorros': 'First aid', 'RECUPERAR': 'RECOVER', 'Curar personagem': 'Heal character', 'Ferimentos e sangramento': 'Injuries and bleeding', 'Remover infecção': 'Remove infection', 'Infecção zumbi e febre': 'Zombie infection and fever', 'Saciar fome e sede': 'Satisfy hunger and thirst', 'Necessidades em equilíbrio': 'Needs balanced', 'Descansar agora': 'Rest now', 'Fadiga e resistência': 'Fatigue and endurance', 'KIT DE EMERGÊNCIA': 'EMERGENCY KIT', 'Um clique. De volta à luta.': 'One click. Back to the fight.',
+  'Reforçar a mochila': 'Stock up your backpack', 'INVENTÁRIO': 'INVENTORY', 'Suprimentos direto na mochila principal.': 'Supplies delivered directly to your main inventory.', 'Abrir arsenal de itens': 'Open item arsenal', 'Nome ou ID do item': 'Item name or ID', 'Quantidade': 'Quantity', 'Adicionar item': 'Add item', 'Até 25 por envio. IDs de mods também são aceitos.': 'Up to 25 per request. Mod IDs are accepted too.',
+  'Subir de nível': 'Level up', 'PROGRESSÃO': 'PROGRESSION', 'Filtrar perícias': 'Filter skills', 'NÍVEL / 10': 'LEVEL / 10', 'Seu personagem': 'Your character', 'AJUSTAR': 'ADJUST', 'Modo deus': 'God mode', 'Proteção temporária (segundos)': 'Temporary protection (seconds)', 'Ativar': 'Enable', 'Desativar': 'Disable', 'Necessidades e temperatura': 'Needs and temperature', 'Necessidade': 'Need', 'Fome (0–1)': 'Hunger (0–1)', 'Sede (0–1)': 'Thirst (0–1)', 'Fadiga (0–1)': 'Fatigue (0–1)', 'Dor (0–100)': 'Pain (0–100)', 'Temperatura (30–42 °C)': 'Temperature (30–42 °C)', 'Valor': 'Value', 'Aplicar': 'Apply', 'Traços e experiência': 'Traits and experience', 'Chave do traço B42': 'B42 trait key', 'Ação no traço': 'Trait action', 'Adicionar traço': 'Add trait', 'Remover traço': 'Remove trait', 'Ex.: BRAVE, DEXTEROUS, ORGANIZED. Altera o traço; não recalcula bônus de criação.': 'E.g.: BRAVE, DEXTEROUS, ORGANIZED. Changes the trait; creation bonuses are not recalculated.', 'Perícia': 'Skill', 'XP a adicionar': 'XP to add', 'Adicionar XP': 'Add XP', 'Teleporte': 'Teleport', 'Destino próximo, carregado, livre e com piso. Saia do veículo.': 'Destination must be nearby, loaded, clear, and have a floor. Exit the vehicle.', 'Teleportar': 'Teleport',
+  'Registro da sessão': 'Session log', 'Limpar': 'Clear', 'Os resultados dos comandos aparecerão aqui.': 'Command results will appear here.', 'CONTROLE LOCAL': 'LOCAL CONTROL', 'SUPRIMENTOS': 'SUPPLIES', 'Catálogo de itens': 'Item catalog', 'Fechar catálogo': 'Close catalog', 'Escolha um item para preencher o spawner. Depois, ajuste a quantidade e adicione.': 'Choose an item to fill the spawner. Then adjust the quantity and add it.', 'Buscar por nome ou ID': 'Search by name or ID', 'Módulo': 'Module', 'Todos os módulos': 'All modules', 'Atualizar': 'Refresh', 'Anterior': 'Previous', 'Próxima': 'Next', 'Machado, bandagem, Base.Axe…': 'Axe, bandage, Base.Axe…', 'Filtrar perícias…': 'Filter skills…',
+  'Ative o mod Motuca Web Bridge e carregue uma partida solo. O trainer também funciona com o jogo pausado.': 'Enable the Motuca Web Bridge mod and load a solo game. The trainer also works while the game is paused.', 'Não foi possível acessar o servidor local. Verifique se npm start está em execução e recarregue o painel.': 'Unable to reach the local server. Check that npm start is running and reload the panel.', 'Falha na conexão.': 'Connection failed.', 'confirmado pelo jogo.': 'confirmed by the game.', 'Sem confirmação. Confira o jogo antes de repetir.': 'No confirmation. Check the game before repeating.', 'Carregando catálogo…': 'Loading catalog…', 'item encontrado': 'item found', 'itens encontrados': 'items found', 'clique para selecionar': 'click to select', 'Nenhum item encontrado. Tente outro nome ou módulo.': 'No items found. Try another name or module.', 'Página': 'Page', 'de': 'of', 'Não foi possível iniciar o painel:': 'Unable to start the panel:', 'Recarregue a página.': 'Reload the page.'
+};
+const catalogs = { 'pt-BR': ptBR, en };
+let locale = localStorage.getItem('motuca-language');
+if (!catalogs[locale]) locale = navigator.language?.startsWith('en') ? 'en' : 'pt-BR';
+export const getLocale = () => locale;
+export const t = text => catalogs[locale][text] || text;
+export const number = value => value.toLocaleString(locale);
+export const time = date => date.toLocaleTimeString(locale);
+export function localizeDocument() {
+  document.documentElement.lang = locale;
+  document.querySelectorAll('[placeholder],[aria-label]').forEach(element => { for (const attribute of ['placeholder', 'aria-label']) if (element.hasAttribute(attribute)) element.setAttribute(attribute, t(element.getAttribute(attribute))); });
+  document.querySelectorAll('[data-i18n-attr]').forEach(element => { for (const attribute of element.dataset.i18nAttr.split(',')) element.setAttribute(attribute, t(element.getAttribute(attribute))); });
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); const nodes = []; let node;
+  while ((node = walker.nextNode())) nodes.push(node);
+  for (const textNode of nodes) { const source = textNode.nodeValue; const translated = t(source.trim()); if (translated !== source.trim()) textNode.nodeValue = source.replace(source.trim(), translated); }
+}
+export function setLocale(nextLocale) { if (catalogs[nextLocale]) { localStorage.setItem('motuca-language', nextLocale); location.reload(); } }
