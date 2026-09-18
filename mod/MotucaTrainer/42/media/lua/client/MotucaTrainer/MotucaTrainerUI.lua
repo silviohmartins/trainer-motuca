@@ -1,4 +1,4 @@
--- Motuca Trainer [B42]: janela dentro do jogo. Abre com a tecla configurada (F6 por padrao).
+-- Motuca Trainer [B42]: janela dentro do jogo. Abre com a tecla configurada (F7 por padrao).
 -- Le o estado direto do personagem a cada frame; nao existe ponte, servidor nem arquivo.
 require 'ISUI/ISCollapsableWindow'
 
@@ -431,5 +431,5 @@ Events.OnKeyPressed.Add(onKeyPressed)
 
 Events.OnGameBoot.Add(function()
     table.insert(keyBinding, { value = '[Motuca Trainer]' })
-    table.insert(keyBinding, { value = 'Motuca Trainer', key = Keyboard.KEY_F6 })
+    table.insert(keyBinding, { value = 'Motuca Trainer', key = Keyboard.KEY_F7 })
 end)

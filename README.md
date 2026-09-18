@@ -4,7 +4,7 @@ Trainer com painel dentro do jogo para **Project Zomboid 42.20.x, Single Player*
 
 ## Instalar
 
-**Workshop:** assine o item, ative **Motuca Trainer [B42]** nos mods do save, carregue a partida e pressione **F6**.
+**Workshop:** assine o item, ative **Motuca Trainer [B42]** nos mods do save, carregue a partida e pressione **F7**.
 
 **Local, para desenvolvimento:** copie `mod/MotucaTrainer` para `%USERPROFILE%/Zomboid/mods/MotucaTrainer` e ative no save.
 
@@ -46,7 +46,7 @@ npm test
 
 Os testes carregam `MotucaCommands.lua` real sob [Fengari](https://fengari.io) com os objetos do jogo simulados, e cobrem: validação de ID e quantidade de item, recusa fora de single player e com personagem morto, limites de necessidade, perícias e XP, resolução de traço nos dois formatos de id (`NeedsMoreSleep` e `NEEDS_MORE_SLEEP`), expiração do modo deus com o jogo pausado, teleporte para quadrado carregado e filtragem do catálogo. Fengari é dependência só de desenvolvimento; o mod publicado não usa Node.
 
-Validação manual em um save de teste: abrir com F6, adicionar item pelo catálogo, curar, remover infecção, alterar necessidades, subir perícia, adicionar e remover traço, expirar o modo deus (também após salvar, sair e recarregar) e teleportar perto. Pausar o jogo deve manter o painel operando; voltar ao menu principal e carregar outra partida deve recriar a janela sem reaproveitar o personagem anterior.
+Validação manual em um save de teste: abrir com F7, adicionar item pelo catálogo, curar, remover infecção, alterar necessidades, subir perícia, adicionar e remover traço, expirar o modo deus (também após salvar, sair e recarregar) e teleportar perto. Pausar o jogo deve manter o painel operando; voltar ao menu principal e carregar outra partida deve recriar a janela sem reaproveitar o personagem anterior.
 
 Erros de Lua aparecem em `%USERPROFILE%/Zomboid/console.txt`.
 

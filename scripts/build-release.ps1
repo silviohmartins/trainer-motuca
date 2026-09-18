@@ -27,7 +27,7 @@ try {
     $graphics.DrawString('TRAINER',$subtitle,$gold,40,192)
     $graphics.DrawString('PROJECT ZOMBOID',$small,$blue,42,260)
     $graphics.DrawString('BUILD 42 / SINGLE PLAYER',$small,$white,42,385)
-    $graphics.DrawString('PAINEL NO JOGO / TECLA F6',$small,$blue,42,420)
+    $graphics.DrawString('PAINEL NO JOGO / TECLA F7',$small,$blue,42,420)
     $bitmap.Save((Join-Path $workshop 'preview.png'),[System.Drawing.Imaging.ImageFormat]::Png)
 } finally {
     $graphics.Dispose();$bitmap.Dispose();$gold.Dispose();$white.Dispose();$blue.Dispose();$title.Dispose();$subtitle.Dispose();$small.Dispose()
