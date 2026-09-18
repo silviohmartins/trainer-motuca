@@ -43,7 +43,7 @@ player={
  getVehicle=function()return nil end,teleportTo=function(self,x,y,z)destination={x,y,z}end
 }
 function getPlayer()return player end
-function getScriptManager()return {FindItem=function(self,id)if id=='Base.Axe' then return {}end end}end
+function getScriptManager()return {FindItem=function(self,id)if id=='Base.Axe' or id=='MyMod.Vest_Medium-Black' then return {}end end}end
 loaded=true
 function getCell()return {getGridSquare=function()if loaded then return {TreatAsSolidFloor=function()return true end,isFree=function()return true end}end end}end
 function advance(ms)clock=clock+ms;tick()end
@@ -63,10 +63,12 @@ test('valida id, quantidade e existencia do item, e aplica o lote uma unica vez'
   f.run('assert(mutations==3)');
   assert.equal(f.send("{action='item',item='Base.Missing',quantity=1}"),'IGUI_Motuca_ErrItemMissing');
   assert.equal(f.send("{action='item',item='Base.Axe',quantity=26}"),'IGUI_Motuca_ErrRange');
-  assert.equal(f.send("{action='item',item='sem ponto',quantity=1}"),'IGUI_Motuca_ErrItemId');
+  // Ids de mod trazem '-': quem valida e o FindItem do jogo, nao um charset adivinhado.
+  assert.equal(f.send("{action='item',item='MyMod.Vest_Medium-Black',quantity=1}"),true);
+  assert.equal(f.send("{action='item',item='sem ponto',quantity=1}"),'IGUI_Motuca_ErrItemMissing');
   // Campo ausente vem como nil do formulario vazio: continua sendo recusado.
   assert.equal(f.send("{action='item',item='Base.Axe'}"),'IGUI_Motuca_ErrRange');
-  f.run('assert(mutations==3)');
+  f.run('assert(mutations==4)');
 });
 test('recusa comando sem personagem solo vivo',t=>{
   const f=fixture(t);

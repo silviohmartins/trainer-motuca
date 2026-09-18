@@ -52,7 +52,6 @@
     "IGUI_Motuca_ErrNoPlayer": "No living character loaded.",
     "IGUI_Motuca_ErrRange": "Value out of range.",
     "IGUI_Motuca_ErrStat": "Invalid need.",
-    "IGUI_Motuca_ErrItemId": "Invalid item ID.",
     "IGUI_Motuca_ErrItemMissing": "Item does not exist in this installation.",
     "IGUI_Motuca_ErrItemAdd": "Failed to add item; the inventory may have received part of the batch.",
     "IGUI_Motuca_ErrPerk": "Invalid skill.",

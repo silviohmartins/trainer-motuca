@@ -52,7 +52,6 @@
     "IGUI_Motuca_ErrNoPlayer": "Nenhum personagem vivo carregado.",
     "IGUI_Motuca_ErrRange": "Valor fora do limite.",
     "IGUI_Motuca_ErrStat": "Necessidade inválida.",
-    "IGUI_Motuca_ErrItemId": "ID de item inválido.",
     "IGUI_Motuca_ErrItemMissing": "Item inexistente nesta instalação.",
     "IGUI_Motuca_ErrItemAdd": "Falha ao adicionar item; o inventário pode ter recebido parte do lote.",
     "IGUI_Motuca_ErrPerk": "Perícia inválida.",

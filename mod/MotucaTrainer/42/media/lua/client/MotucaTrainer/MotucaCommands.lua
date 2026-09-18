@@ -86,7 +86,10 @@ local function execute(player, command)
         if not row then fail('IGUI_Motuca_ErrStat') end
         setStat(player, row.stat, bounded(command.value, row.low, row.high))
     elseif action == 'item' then
-        if type(command.item) ~= 'string' or #command.item > 100 or not command.item:match('^[%w_]+%.[%w_]+$') then fail('IGUI_Motuca_ErrItemId') end
+        -- FindItem e a validacao: o id vem do catalogo do jogo e nao cabe a este mod
+        -- adivinhar o charset de um id de mod (492 dos 5108 itens de uma instalacao
+        -- com mods trazem '-', e 4 itens do vanilla tambem).
+        if type(command.item) ~= 'string' or #command.item > 200 then fail('IGUI_Motuca_ErrItemMissing') end
         local quantity = bounded(command.quantity, 1, 25, true)
         if not getScriptManager():FindItem(command.item) then fail('IGUI_Motuca_ErrItemMissing') end
         for _ = 1, quantity do
