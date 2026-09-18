@@ -1,0 +1,65 @@
+{
+    "IGUI_Motuca_Title": "Motuca Trainer",
+    "IGUI_Motuca_TabSurvivor": "Sobrevivente",
+    "IGUI_Motuca_TabPack": "Mochila",
+    "IGUI_Motuca_TabSkills": "Perícias",
+    "IGUI_Motuca_TabCharacter": "Personagem",
+
+    "IGUI_Motuca_Heal": "Curar personagem",
+    "IGUI_Motuca_Infection": "Remover infecção",
+    "IGUI_Motuca_Needs": "Saciar fome e sede",
+    "IGUI_Motuca_Rest": "Descansar agora",
+
+    "IGUI_Motuca_God": "Modo deus",
+    "IGUI_Motuca_Seconds": "Segundos",
+    "IGUI_Motuca_Enable": "Ativar",
+    "IGUI_Motuca_Disable": "Desativar",
+    "IGUI_Motuca_On": "ativo",
+    "IGUI_Motuca_Off": "desativado",
+
+    "IGUI_Motuca_Need": "Necessidade",
+    "IGUI_Motuca_Apply": "Aplicar",
+    "IGUI_Motuca_Stat_hunger": "Fome",
+    "IGUI_Motuca_Stat_thirst": "Sede",
+    "IGUI_Motuca_Stat_fatigue": "Fadiga",
+    "IGUI_Motuca_Stat_pain": "Dor",
+    "IGUI_Motuca_Stat_temperature": "Temperatura",
+
+    "IGUI_Motuca_Search": "Buscar",
+    "IGUI_Motuca_Quantity": "Quantidade",
+    "IGUI_Motuca_AddItem": "Adicionar item",
+    "IGUI_Motuca_Showing": "mostrando %1 de %2",
+
+    "IGUI_Motuca_Max": "Máximo",
+    "IGUI_Motuca_AddXp": "Adicionar XP",
+
+    "IGUI_Motuca_TraitAdd": "Adicionar traço",
+    "IGUI_Motuca_TraitRemove": "Remover traço",
+    "IGUI_Motuca_Owned": "(o personagem tem)",
+
+    "IGUI_Motuca_Teleport": "Teleportar",
+    "IGUI_Motuca_Here": "Posição atual",
+
+    "IGUI_Motuca_Health": "Saúde",
+    "IGUI_Motuca_Coords": "Coordenadas",
+
+    "IGUI_Motuca_Done": "%1: confirmado",
+    "IGUI_Motuca_SelectItem": "Selecione um item na lista.",
+    "IGUI_Motuca_SelectPerk": "Selecione uma perícia na lista.",
+    "IGUI_Motuca_SelectTrait": "Selecione um traço na lista.",
+
+    "IGUI_Motuca_ErrSolo": "O trainer funciona somente em single player.",
+    "IGUI_Motuca_ErrNoPlayer": "Nenhum personagem vivo carregado.",
+    "IGUI_Motuca_ErrRange": "Valor fora do limite.",
+    "IGUI_Motuca_ErrStat": "Necessidade inválida.",
+    "IGUI_Motuca_ErrItemId": "ID de item inválido.",
+    "IGUI_Motuca_ErrItemMissing": "Item inexistente nesta instalação.",
+    "IGUI_Motuca_ErrItemAdd": "Falha ao adicionar item; o inventário pode ter recebido parte do lote.",
+    "IGUI_Motuca_ErrPerk": "Perícia inválida.",
+    "IGUI_Motuca_ErrMode": "Modo inválido.",
+    "IGUI_Motuca_ErrTrait": "Traço inválido.",
+    "IGUI_Motuca_ErrTeleport": "O destino precisa estar carregado, livre e com piso.",
+    "IGUI_Motuca_ErrVehicle": "Saia do veículo antes de teleportar.",
+    "IGUI_Motuca_ErrEnabled": "Estado inválido.",
+    "IGUI_Motuca_ErrUnknown": "Comando desconhecido."
+}

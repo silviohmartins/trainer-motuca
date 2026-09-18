@@ -1,0 +1,65 @@
+{
+    "IGUI_Motuca_Title": "Motuca Trainer",
+    "IGUI_Motuca_TabSurvivor": "Survivor",
+    "IGUI_Motuca_TabPack": "Backpack",
+    "IGUI_Motuca_TabSkills": "Skills",
+    "IGUI_Motuca_TabCharacter": "Character",
+
+    "IGUI_Motuca_Heal": "Heal character",
+    "IGUI_Motuca_Infection": "Clear infection",
+    "IGUI_Motuca_Needs": "Feed and hydrate",
+    "IGUI_Motuca_Rest": "Rest now",
+
+    "IGUI_Motuca_God": "God mode",
+    "IGUI_Motuca_Seconds": "Seconds",
+    "IGUI_Motuca_Enable": "Enable",
+    "IGUI_Motuca_Disable": "Disable",
+    "IGUI_Motuca_On": "on",
+    "IGUI_Motuca_Off": "off",
+
+    "IGUI_Motuca_Need": "Need",
+    "IGUI_Motuca_Apply": "Apply",
+    "IGUI_Motuca_Stat_hunger": "Hunger",
+    "IGUI_Motuca_Stat_thirst": "Thirst",
+    "IGUI_Motuca_Stat_fatigue": "Fatigue",
+    "IGUI_Motuca_Stat_pain": "Pain",
+    "IGUI_Motuca_Stat_temperature": "Temperature",
+
+    "IGUI_Motuca_Search": "Search",
+    "IGUI_Motuca_Quantity": "Quantity",
+    "IGUI_Motuca_AddItem": "Add item",
+    "IGUI_Motuca_Showing": "showing %1 of %2",
+
+    "IGUI_Motuca_Max": "Max",
+    "IGUI_Motuca_AddXp": "Add XP",
+
+    "IGUI_Motuca_TraitAdd": "Add trait",
+    "IGUI_Motuca_TraitRemove": "Remove trait",
+    "IGUI_Motuca_Owned": "(character has it)",
+
+    "IGUI_Motuca_Teleport": "Teleport",
+    "IGUI_Motuca_Here": "Current position",
+
+    "IGUI_Motuca_Health": "Health",
+    "IGUI_Motuca_Coords": "Coordinates",
+
+    "IGUI_Motuca_Done": "%1: confirmed",
+    "IGUI_Motuca_SelectItem": "Select an item from the list.",
+    "IGUI_Motuca_SelectPerk": "Select a skill from the list.",
+    "IGUI_Motuca_SelectTrait": "Select a trait from the list.",
+
+    "IGUI_Motuca_ErrSolo": "The trainer only works in single player.",
+    "IGUI_Motuca_ErrNoPlayer": "No living character loaded.",
+    "IGUI_Motuca_ErrRange": "Value out of range.",
+    "IGUI_Motuca_ErrStat": "Invalid need.",
+    "IGUI_Motuca_ErrItemId": "Invalid item ID.",
+    "IGUI_Motuca_ErrItemMissing": "Item does not exist in this installation.",
+    "IGUI_Motuca_ErrItemAdd": "Failed to add item; the inventory may have received part of the batch.",
+    "IGUI_Motuca_ErrPerk": "Invalid skill.",
+    "IGUI_Motuca_ErrMode": "Invalid mode.",
+    "IGUI_Motuca_ErrTrait": "Invalid trait.",
+    "IGUI_Motuca_ErrTeleport": "The destination must be loaded, free and have a floor.",
+    "IGUI_Motuca_ErrVehicle": "Leave the vehicle before teleporting.",
+    "IGUI_Motuca_ErrEnabled": "Invalid state.",
+    "IGUI_Motuca_ErrUnknown": "Unknown command."
+}

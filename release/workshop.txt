@@ -1,0 +1,13 @@
+version=1
+title=Motuca Trainer [B42]
+description=Trainer com painel dentro do jogo para Project Zomboid Build 42.20.x, somente Single Player.
+description=
+description=Nao requer aplicativo externo, Node.js, navegador nem servidor local. Assine, ative no save e pressione F6.
+description=
+description=Abas: Sobrevivente (cura, infeccao, fome e sede, descanso, modo deus temporario, necessidades e temperatura), Mochila (catalogo de itens do jogo e dos mods ativos, com busca, lotes de 1 a 25), Pericias (+1, maximo e XP) e Personagem (tracos do jogo e de mods, teleporte proximo).
+description=
+description=A tecla pode ser trocada em Opcoes, Teclas, secao Motuca Trainer. Funciona com o jogo pausado. Portugues e English. Nao compativel com multiplayer. Conferido contra os arquivos da instalacao 42.20.4.
+description=
+description=Beta: use um save de teste ou mantenha uma copia.
+tags=Build 42;Interface
+visibility=private

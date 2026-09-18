@@ -1,91 +1,65 @@
-# Motuca · PZ Web Trainer
+# Motuca Trainer [B42]
 
-Dashboard local (Português/English), backend Node.js e mod Lua sem interface. Alvo: **Project Zomboid 42.20.x, Single Player**. As chamadas da API foram conferidas nos arquivos da instalação 42.20.4; a validação automatizada não substitui o teste em uma partida real.
+Trainer com painel dentro do jogo para **Project Zomboid 42.20.x, Single Player**. Só Lua: sem Node.js, servidor local, navegador ou ponte de arquivos. As chamadas de API foram conferidas contra os arquivos da instalação 42.20.4; a validação automatizada não substitui o teste em uma partida real.
 
-## Iniciar
+## Instalar
 
-Requer Node.js 22 ou superior. Sem dependências de runtime.
+**Workshop:** assine o item, ative **Motuca Trainer [B42]** nos mods do save, carregue a partida e pressione **F6**.
 
-```powershell
-node scripts/install-mod.js   # opcional: instala o mod na pasta do jogo
-node scripts/start.js         # ou: npm start
-```
+**Local, para desenvolvimento:** copie `mod/MotucaTrainer` para `%USERPROFILE%/Zomboid/mods/MotucaTrainer` e ative no save.
 
-1. No jogo, ative **Motuca Web Bridge [B42]** nos mods do save e carregue a partida.
-2. Abra **http://localhost:9876**. O indicador só conecta com um estado recente de um jogador solo vivo.
-3. Envie um comando. O registro informa sucesso apenas após a confirmação do Lua.
-
-No Windows, `Iniciar Trainer.bat` e `Instalar Mod Local.bat` fazem o mesmo sem usar o terminal. O trainer continua atendendo durante a pausa, inclusive ao alternar para o navegador.
-
-Variáveis de ambiente: `PZ_USER_DIR` (diretório Zomboid personalizado, ex.: jogo iniciado com `-cachedir`), `PZ_LUA_DIR` (override do diretório Lua) e `PORT`. O servidor fica vinculado somente a `127.0.0.1`.
-
-O instalador copia `mod/PZWebBridge` para `%USERPROFILE%/Zomboid/mods/PZWebBridge` e cria a caixa de mensagens em `%USERPROFILE%/Zomboid/Lua/PZWebBridge`. Ele recusa sobrescrever instalação existente: para atualizar, substitua os arquivos com o jogo fechado; para remover, desative o mod e apague só essa pasta.
+A tecla é registrada em **Opções → Teclas → [Motuca Trainer]** e pode ser trocada lá. A janela é arrastável e alterna com a mesma tecla; o painel responde com o jogo pausado.
 
 ## Controles
 
-- Cura completa, remoção de infecção zumbi, fome/sede e descanso.
-- **Explorar catálogo de itens**: popup com nomes do jogo, IDs, busca sem distinção de acentos, filtro por módulo e páginas de 48 itens. Inclui mods ativos e exclui itens ocultos/obsoletos. Após atualizar o mod, reinicie o jogo e aguarde a exportação inicial (100 registros a cada 150 ms).
-- Itens por ID, com sugestões e lotes de 1–25. A existência é verificada no jogo.
-- Perícias de combate/sobrevivência/artesanato: `+1`, `Max` (10) e adição de XP. Níveis sincronizados com o XP; XP bruto segue multiplicadores do jogo.
-- Fome, sede e fadiga 0–1; dor 0–100; temperatura 30–42 °C. As necessidades voltam a evoluir normalmente depois.
-- Traços por chave B42 (`BRAVE`, `DEXTEROUS`, `ORGANIZED`…). Altera a coleção e os bônus de XP, sem recalcular receitas, roupas ou níveis da criação do personagem, e sem resolver traços incompatíveis.
-- Modo deus temporário, 1–600 s de relógio. Guarda prazo e estado anterior no personagem e restaura no próximo tick após expirar, inclusive durante a pausa e após recarregar o save.
-- Teleporte somente a quadrados carregados, livres e com piso, fora de veículos.
+- **Sobrevivente**: cura completa, remoção de infecção zumbi e febre, saciar fome e sede, descanso. Modo deus temporário de 1–600 s de relógio, que guarda prazo e estado anterior no personagem e restaura no primeiro tick após expirar — inclusive durante a pausa e após recarregar o save. Ajuste direto de fome, sede e fadiga (0–1), dor (0–100) e temperatura (30–42 °C); as necessidades voltam a evoluir normalmente depois.
+- **Mochila**: catálogo com os nomes e IDs da instalação, incluindo mods ativos, sem itens ocultos ou obsoletos. Busca por nome ou ID, lotes de 1 a 25, existência verificada antes de adicionar.
+- **Perícias**: `+1`, máximo (10) e adição de XP na perícia selecionada. Níveis sincronizados com o XP; XP bruto segue os multiplicadores do jogo.
+- **Personagem**: traços do jogo e de mods, lidos das definições carregadas e marcados quando o personagem já os tem. Altera a coleção e os bônus de XP; não recalcula receitas, roupas nem níveis da criação do personagem, e não resolve traços incompatíveis. Teleporte somente para quadrados carregados, livres e com piso, fora de veículos — o botão **Posição atual** preenche as coordenadas.
 
-Menu principal, jogo fechado ou heartbeat vencido exibem “Aguardando jogo”. O mod rejeita multiplayer, personagem ausente e personagem morto. A cura não ressuscita.
-
-Os textos do painel ficam em `web/i18n.js`; para um novo idioma, adicione-o a `languages` e crie o catálogo em `catalogs`, sem tocar na lógica de comandos.
-
-## API
-
-`GET /api/session` (token local, perícias, sugestões), `GET /api/status` (conexão e estado) `GET /api/traits/catalog` (id e nome de cada traço do jogo e de mods, exportados pelo mod em `traits.json`) e `GET /api/items/catalog?q=&module=&page=1` (catálogo da partida ativa; o mod exporta `catalog.txt` e publica `catalog-meta.json` ao concluir, com cache por sessão no servidor).
-
-POSTs exigem `Content-Type: application/json` e `X-Trainer-Token` obtido na sessão. Origem e Host são validados; sem CORS permissivo. O token protege contra requisições de outros sites, não contra processos locais com acesso aos arquivos.
-
-| Endpoint POST | Corpo |
-|---|---|
-| `/api/player/heal` | `{}` |
-| `/api/player/infection` | `{}` |
-| `/api/player/needs` | `{}` |
-| `/api/player/rest` | `{}` |
-| `/api/items/add` | `{"item":"Base.Axe","quantity":1}` |
-| `/api/player/stat` | `{"stat":"temperature","value":37}` |
-| `/api/skills/change` | `{"perk":"Axe","mode":"plus"}` ou `"max"` |
-| `/api/skills/xp` | `{"perk":"Axe","amount":100}` |
-| `/api/traits/change` | `{"trait":"NeedsMoreSleep","enabled":true}` |
-| `/api/player/god` | `{"enabled":true,"seconds":60}` |
-| `/api/player/teleport` | `{"x":10600,"y":9800,"z":0}` |
-
-Erros: 400 entrada inválida; 403 origem/token; 409 comando em andamento; 422 rejeição pelo jogo; 503 sem partida ativa; 504 confirmação não recebida. Mutação parcialmente aplicada antes de uma exceção não é revertida.
-
-## Transporte
-
-O Lua do PZ usa Kahlua e a instalação 42.20.4 não expõe `java.net.ServerSocket` nem LuaSocket, então **não há socket TCP dentro do mod**.
-
-O navegador usa JSON/REST em `localhost:9876`. O backend grava uma mensagem JSON por substituição atômica em `Zomboid/Lua/PZWebBridge/command.json`. O mod lê esse arquivo a cada 150 ms via `Events.OnTickEvenPaused`, executa no máximo um comando e grava `response.json`; publica `state.json` a cada ~500 ms e o painel consulta a API a cada segundo. Sem espera de rede ou busy-wait no Lua, mas **a leitura/escrita de arquivos é síncrona** — use disco local, pois não há garantia de zero stuttering em discos lentos. I/O totalmente assíncrono ou TCP no mod exigiria uma extensão Java, fora desta versão.
-
-O protocolo aceita só objetos JSON planos (strings ASCII sem escapes, números finitos, booleanos) e não interpreta código recebido. Cada comando tem ID, identificação da partida e prazo de validade. Há um único envio em andamento, sem fila persistente nem reenvio. IDs repetidos não reexecutam na mesma sessão; mensagens de outra partida ou expiradas não alteram o personagem. Resposta perdida deixa o resultado **incerto**, não garante falha.
+Sem personagem solo vivo, o painel não abre e a faixa de status informa o motivo. O mod recusa multiplayer, servidor, personagem ausente e personagem morto. A cura não ressuscita.
 
 ## Estrutura
 
 ```text
-mod/PZWebBridge/42/          # mod.info + media/lua/client/PZWebBridge.lua (pasta versionada B42)
-backend/                     # HTTP, validação e caixa de mensagens
-web/                         # HTML/CSS/JS, sem CDN ou build
-scripts/                     # start.js, install-mod.js, build-release.ps1
-tests/
+mod/MotucaTrainer/42/
+  mod.info
+  media/lua/client/MotucaTrainer/MotucaCommands.lua    # mutações do jogo e catálogos
+  media/lua/client/MotucaTrainer/MotucaTrainerUI.lua   # janela, abas e keybind
+  media/lua/shared/Translate/{PTBR,EN}/IG_UI.json      # textos
+scripts/build-release.ps1                              # pacote Workshop
+tests/lua.test.js                                      # MotucaCommands sob Fengari
 ```
 
-## Validação e diagnóstico
+`MotucaCommands.run` é a única porta de entrada: valida o contexto (solo, vivo), executa em `pcall` e devolve `ok, mensagem`. A UI nunca toca no personagem direto. As faixas válidas de cada necessidade ficam em `MotucaCommands.stats` e a UI lê de lá, então limite e rótulo não se duplicam.
 
-`npm ci && npm test` roda os testes de backend, catálogo e Lua (Fengari é dependência só de desenvolvimento). Sem npm: `node --test tests/backend.test.js`.
+## Textos
 
-Validação manual em um save de teste: adicionar item, curar, remover infecção, alterar necessidades, subir perícia, adicionar/remover traço, expirar o modo deus (também após salvar/sair e recarregar) e teleportar perto. Pausar ou alternar para o navegador deve manter a conexão; voltar ao menu principal deve interrompê-la sem repetir comandos na partida seguinte.
+Um arquivo por idioma em `media/lua/shared/Translate/<LANG>/IG_UI.json`, no formato JSON plano do B42. Para um novo idioma, copie `EN/IG_UI.json` para a pasta do idioma e traduza os valores; nenhuma mudança de Lua é necessária.
 
-Se não conectar, confira a ativação do mod no save, `PZ_LUA_DIR`, se a partida está carregada e `%USERPROFILE%/Zomboid/console.txt` (prefixo `[PZWebBridge]`). Só uma instância do backend pode usar a mesma caixa de mensagens — mudar a porta não cria caixa separada.
+## Validação
+
+```powershell
+npm ci
+npm test
+```
+
+Os testes carregam `MotucaCommands.lua` real sob [Fengari](https://fengari.io) com os objetos do jogo simulados, e cobrem: validação de ID e quantidade de item, recusa fora de single player e com personagem morto, limites de necessidade, perícias e XP, resolução de traço nos dois formatos de id (`NeedsMoreSleep` e `NEEDS_MORE_SLEEP`), expiração do modo deus com o jogo pausado, teleporte para quadrado carregado e filtragem do catálogo. Fengari é dependência só de desenvolvimento; o mod publicado não usa Node.
+
+Validação manual em um save de teste: abrir com F6, adicionar item pelo catálogo, curar, remover infecção, alterar necessidades, subir perícia, adicionar e remover traço, expirar o modo deus (também após salvar, sair e recarregar) e teleportar perto. Pausar o jogo deve manter o painel operando; voltar ao menu principal e carregar outra partida deve recriar a janela sem reaproveitar o personagem anterior.
+
+Erros de Lua aparecem em `%USERPROFILE%/Zomboid/console.txt`.
 
 ## Distribuir
 
-`powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-release.ps1` gera ZIPs separados do aplicativo Windows e do mod para Workshop, com imagem de apresentação e hashes SHA-256, a partir de uma lista explícita de arquivos, recusando sobrescrever compilação existente. Passos de revisão e publicação em `release/PUBLICAR.md`; gerar os pacotes não publica nada.
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-release.ps1
+```
 
-Referência: [API LuaManager e acesso a arquivos](https://projectzomboid.com/modding/zombie/Lua/LuaManager.GlobalObject.html). Para B42.20, o Lua distribuído com o jogo é a referência de `CharacterStat`, `CharacterTrait`, `CharacterTraitDefinition`, `teleportTo` e sincronização de XP.
+Gera em `dist/<versão>` a pasta Workshop, o ZIP, a imagem de apresentação 512×512 e o hash SHA-256, recusando sobrescrever uma compilação existente. Passos de revisão e publicação em `release/PUBLICAR.md`; gerar os pacotes não publica nada.
+
+## Histórico
+
+Até a `0.1.0-beta.1` o trainer era um painel web com backend Node.js e uma ponte por arquivos JSON, porque o Kahlua do B42 não expõe socket TCP ao Lua do mod. Com a UI dentro do jogo, o transporte deixou de existir: backend, frontend, instalador, inicializadores e o parser JSON em Lua foram removidos, e `MotucaCommands` herdou intacta a camada que altera o personagem. A interface usa apenas `ISUI` do jogo — sem dependência de framework de UI de terceiros, que exigiria uma segunda assinatura do usuário.
+
+Referência: [API LuaManager e acesso a arquivos](https://projectzomboid.com/modding/zombie/Lua/LuaManager.GlobalObject.html). Para B42.20, o Lua distribuído com o jogo é a referência de `CharacterStat`, `CharacterTrait`, `CharacterTraitDefinition`, `teleportTo`, `ISCollapsableWindow` e sincronização de XP.
