@@ -32,7 +32,7 @@ export function validate(action, input) {
       else { if (!['plus','max'].includes(input.mode)) fail('Modo inválido.'); take('mode', input.mode); }
       break;
     case 'trait':
-      if (typeof input.trait !== 'string' || !/^[A-Z][A-Z0-9_]{1,63}$/.test(input.trait)) fail('Use a chave do traço, por exemplo BRAVE.');
+      if (typeof input.trait !== 'string' || !/^[A-Za-z][A-Za-z0-9_]{1,63}$/.test(input.trait)) fail('Use o id do traço da lista, por exemplo NeedsMoreSleep.');
       if (typeof input.enabled !== 'boolean') fail('enabled deve ser booleano.');
       take('trait', input.trait); take('enabled', input.enabled); break;
     case 'god':

@@ -63,6 +63,18 @@ test('game rejection and uncertain timeout are propagated without retries',async
   await assert.rejects(bridge.send({action:'heal'}),e=>e.status===504);
   assert.equal(bridge.busy,false);
 });
+test('trait list route serves the mod export and validation accepts its ids',async t=>{
+  const {dir,bridge}=await fixture(t);
+  const server=createServer(bridge);
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+  t.after(()=>new Promise(resolve=>{server.close(resolve);server.closeAllConnections();}));
+  const base=`http://127.0.0.1:${server.address().port}`;
+  assert.deepEqual(await (await fetch(`${base}/api/traits/catalog`)).json(),{});
+  await writeFile(join(dir,'traits.json'),JSON.stringify({NeedsMoreSleep:'Dorminhoco'}));
+  assert.deepEqual(await (await fetch(`${base}/api/traits/catalog`)).json(),{NeedsMoreSleep:'Dorminhoco'});
+  assert.deepEqual(validate('trait',{trait:'NeedsMoreSleep',enabled:false}),{action:'trait',trait:'NeedsMoreSleep',enabled:false});
+  assert.throws(()=>validate('trait',{trait:'Needs More Sleep',enabled:false}));
+});
 test('HTTP requires local host, same origin, JSON and session token; serves dashboard',async t=>{
   const sent=[];
   const server=createServer({status:async()=>({connected:false,state:null}),send:async c=>{sent.push(c);return {ok:true};}});

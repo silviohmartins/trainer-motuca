@@ -14,6 +14,12 @@ paused=false
 Events={OnGameStart={Add=function(fn) start=fn end},OnMainMenuEnter={Add=function(fn) menu=fn end},OnTick={Add=function(fn) normalTick=fn end},OnTickEvenPaused={Add=function(fn) tick=fn end}}
 CharacterStat=setmetatable({}, {__index=function(t,k)return k end})
 CharacterTrait={BRAVE='brave'}
+traitDefs={}
+for _,row in ipairs({{'Brave','Corajoso'},{'NeedsMoreSleep','Dorminhoco'},{'Herbalist_Prof','Herborista'}}) do
+ local kind={getName=function()return row[1] end}
+ traitDefs[#traitDefs+1]={getType=function()return kind end,getLabel=function()return row[2] end}
+end
+CharacterTraitDefinition={getTraits=function()return {size=function()return #traitDefs end,get=function(self,i)return traitDefs[i+1] end}end}
 Perks={Axe='Axe',None='None',MAX='MAX'}
 PerkFactory={PerkList={size=function()return 1 end,get=function()return {getType=function()return 'Axe' end}end}}
 function getFileWriter(path,create,append)
@@ -36,7 +42,12 @@ player={
  getPerkLevel=function(self,perk)return levels[perk] or 0 end,LevelPerk=function(self,perk)levels[perk]=(levels[perk] or 0)+1 end,
  getXp=function()return {setXPToLevel=function(self,perk,level)xp=level end,AddXP=function(self,perk,amount)xp=xp+amount end}end,
  hasTrait=function(self,trait)return traits[trait]==true end,
- getCharacterTraits=function()return {add=function(self,trait)traits[trait]=true end,remove=function(self,trait)traits[trait]=nil end}end,
+ getCharacterTraits=function()return {add=function(self,trait)traits[trait]=true end,remove=function(self,trait)traits[trait]=nil end,
+  getKnownTraits=function()
+   local list={}
+   for kind in pairs(traits) do list[#list+1]=kind end
+   return {size=function()return #list end,get=function(self,i)return list[i+1] end}
+  end}end,
  modifyTraitXPBoost=function(self,trait,remove)boosts=boosts+(remove and -1 or 1) end,
  getVehicle=function()return nil end,teleportTo=function(self,x,y,z)destination={x,y,z}end
 }
@@ -94,12 +105,20 @@ test('real Lua handles needs, health, stat validation, skills and XP',t=>{
   assert.equal(f.send({action:'xp',perk:'Axe',amount:100}).ok,true);
   f.run('assert(xp==110)');
 });
-test('real Lua updates trait XP only for membership transitions',t=>{
+test('real Lua exports the trait list, resolves ids and updates trait XP only for membership transitions',t=>{
   const f=fixture(t);
-  for(let i=0;i<2;i++) assert.equal(f.send({action:'trait',trait:'BRAVE',enabled:true}).ok,true);
-  f.run('assert(traits.brave and boosts==1)');
-  for(let i=0;i<2;i++) assert.equal(f.send({action:'trait',trait:'BRAVE',enabled:false}).ok,true);
-  f.run('assert(not traits.brave and boosts==0)');
+  assert.deepEqual(f.file('traits.json'),{Brave:'Corajoso',NeedsMoreSleep:'Dorminhoco',Herbalist_Prof:'Herborista'});
+  for(let i=0;i<2;i++) assert.equal(f.send({action:'trait',trait:'NeedsMoreSleep',enabled:true}).ok,true);
+  f.run('assert(boosts==1);advance(160)');
+  assert.equal(f.file('state.json').traits,'NeedsMoreSleep');
+  // Legacy Lua constants still resolve: case and underscores are ignored.
+  for(let i=0;i<2;i++) assert.equal(f.send({action:'trait',trait:'NEEDS_MORE_SLEEP',enabled:false}).ok,true);
+  f.run('assert(boosts==0);advance(160)');
+  assert.equal(f.file('state.json').traits,'');
+  assert.equal(f.send({action:'trait',trait:'SLEEPYHEAD',enabled:false}).ok,false);
+  assert.equal(f.send({action:'trait',trait:'Herbalist_Prof',enabled:true}).ok,true);
+  f.run('advance(160)');
+  assert.equal(f.file('state.json').traits,'Herbalist_Prof');
 });
 test('real Lua expires temporary god mode, preserves previous state and rejects stale sessions after reload',t=>{
   const f=fixture(t);

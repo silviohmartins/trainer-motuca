@@ -29,6 +29,8 @@ export function createServer(bridge = new Bridge(join(luaDir, 'PZWebBridge'))) {
         if (path === '/api/session') return json(200, { token, skills, items });
         if (path === '/api/status') return json(200, await bridge.status());
         if (path === '/api/items/catalog') return json(200, await catalog.query(new URL(req.url,'http://localhost').searchParams));
+        // Trait list is small and static per install: no paging, no server cache.
+        if (path === '/api/traits/catalog') return json(200, await bridge.read('traits.json') || {});
         const file = { '/':'index.html', '/app.js':'app.js', '/i18n.js':'i18n.js', '/style.css':'style.css' }[path];
         if (!file) throw new ApiError(404, 'Não encontrado.');
         const data = await readFile(join(root, 'web', file));

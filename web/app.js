@@ -41,6 +41,8 @@ async function status() {
     $('#connection').classList.toggle('online', connected); $('#waiting').hidden = connected;
     $('#waiting').textContent=t('Ative o mod Motuca Web Bridge e carregue uma partida solo. O trainer também funciona com o jogo pausado.');
     const s = result.state;
+    const owned = s?.traits || '';
+    if (owned !== traitsSignature) { traitsSignature=owned; traitsOwned=owned?owned.split(','):[]; if ($('#trait-dialog').open) renderTraits(); }
     for (const key of ['health','hunger','thirst','fatigue']) {
       const value = s?.[key]; $(`#${key}`).textContent = typeof value === 'number' ? `${Math.round(key === 'health' ? value : value * 100)}%` : '—';
       $(`#${key}-meter`).value = typeof value === 'number' ? (key === 'health' ? value : value * 100) : 0;
@@ -59,6 +61,44 @@ async function status() {
 function form(id, action, convert, label) {
   $(id).addEventListener('submit', event => { event.preventDefault(); send(action, convert(Object.fromEntries(new FormData(event.target))), label); });
 }
+let traitLabels={}, traitsOwned=[], traitsSignature=null;
+const normalize = text => text.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+function renderTraits() {
+  const term=normalize($('#trait-search').value), mine=$('#trait-filter').value==='mine';
+  const rows=Object.entries(traitLabels)
+    .filter(([id,label])=>(!mine||traitsOwned.includes(id))&&normalize(`${label} ${id}`).includes(term))
+    .sort((a,b)=>a[1].localeCompare(b[1],getLocale()));
+  $('#trait-status').textContent=rows.length ? `${number(rows.length)} ${rows.length===1?t('traço encontrado'):t('traços encontrados')} · ${t('clique para selecionar')}` : t('Nenhum traço encontrado. Tente outro nome ou id.');
+  $('#trait-results').replaceChildren(...rows.map(([id,label])=>{
+    const owned=traitsOwned.includes(id);
+    const button=document.createElement('button'); button.type='button'; button.className='catalog-item';
+    const name=document.createElement('strong'); name.textContent=label;
+    const key=document.createElement('small'); key.textContent=id;
+    const action=document.createElement('span'); action.textContent=owned?t('o personagem tem · remover'):t('adicionar');
+    button.append(name,key,action);
+    button.addEventListener('click',()=>{
+      $('#trait').value=id; $('#trait-enabled').value=owned?'false':'true'; $('#trait-dialog').close();
+    });
+    return button;
+  }));
+}
+async function loadTraits() {
+  $('#trait-status').textContent=t('Carregando traços…');
+  $('#trait-results').replaceChildren(); $('#trait-results').setAttribute('aria-busy','true');
+  try {
+    traitLabels=await json('/api/traits/catalog');
+    if (!Object.keys(traitLabels).length) { $('#trait-status').textContent=t('Lista indisponível. Carregue uma partida com o mod ativo e aguarde alguns segundos.'); return; }
+    // The text field stays typeable: ids from mods loaded later still work.
+    $('#trait-ids').replaceChildren(...Object.keys(traitLabels).sort().map(id=>new Option(traitLabels[id],id)));
+    renderTraits();
+  } catch(error) { $('#trait-status').textContent=error.message; }
+  finally { $('#trait-results').setAttribute('aria-busy','false'); }
+}
+$('#browse-traits').addEventListener('click',()=>{ $('#trait-dialog').showModal(); loadTraits(); });
+$('#trait-close').addEventListener('click',()=>$('#trait-dialog').close());
+$('#trait-search').addEventListener('input',renderTraits);
+$('#trait-filter').addEventListener('change',renderTraits);
+$('#trait-refresh').addEventListener('click',()=>loadTraits());
 let catalogPage=1, catalogPages=1, catalogRequest=0, catalogTimer;
 async function loadCatalog(page=1) {
   clearTimeout(catalogTimer);

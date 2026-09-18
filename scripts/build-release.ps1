@@ -21,7 +21,7 @@ foreach ($file in @('Iniciar Trainer.bat','Instalar Mod Local.bat')) {
 $package = @{name='trainer-motuca';version=$version;private=$true;type='module';engines=@{node='>=22'};scripts=@{start='node scripts/start.js'}}
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 [IO.File]::WriteAllText((Join-Path $app 'package.json'),($package | ConvertTo-Json -Depth 4),$utf8)
-Copy-Item -LiteralPath (Join-Path $projectRoot 'release/LEIA-ME.txt') -Destination $app
+Copy-Item -LiteralPath (Join-Path $projectRoot 'release/README.txt') -Destination $app
 Copy-Item -LiteralPath (Join-Path $projectRoot 'mod/PZWebBridge') -Destination (Join-Path $workshop 'Contents/mods') -Recurse
 Copy-Item -LiteralPath (Join-Path $projectRoot 'release/workshop.txt') -Destination $workshop
 
