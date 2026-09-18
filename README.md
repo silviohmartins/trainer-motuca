@@ -62,4 +62,8 @@ Gera em `dist/<versão>` a pasta Workshop, o ZIP, a imagem de apresentação 512
 
 Até a `0.1.0-beta.1` o trainer era um painel web com backend Node.js e uma ponte por arquivos JSON, porque o Kahlua do B42 não expõe socket TCP ao Lua do mod. Com a UI dentro do jogo, o transporte deixou de existir: backend, frontend, instalador, inicializadores e o parser JSON em Lua foram removidos, e `MotucaCommands` herdou intacta a camada que altera o personagem. A interface usa apenas `ISUI` do jogo — sem dependência de framework de UI de terceiros, que exigiria uma segunda assinatura do usuário.
 
+## Licença
+
+[MIT](LICENSE). Use, adapte e redistribua mantendo o aviso de copyright. Não é convite a republicar o mod na Workshop como item próprio.
+
 Referência: [API LuaManager e acesso a arquivos](https://projectzomboid.com/modding/zombie/Lua/LuaManager.GlobalObject.html). Para B42.20, o Lua distribuído com o jogo é a referência de `CharacterStat`, `CharacterTrait`, `CharacterTraitDefinition`, `teleportTo`, `ISCollapsableWindow` e sincronização de XP.
